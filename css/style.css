@@ -1,0 +1,73 @@
+/* Стили для слайдов с кодом */
+.code-slide {
+    padding-top: 20px !important;
+}
+
+.code-slide .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.code-slide .filename {
+    font-family: 'Courier New', monospace;
+    background: #268bd2;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.code-slide pre {
+    background: #2d2d2d !important;
+    border-radius: 8px;
+    padding: 20px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    max-height: 65vh;
+    overflow: auto !important;
+    margin: 0 20px !important;
+    width: calc(100% - 40px) !important;
+}
+
+.code-slide code {
+    font-size: 0.7em !important;
+    line-height: 1.4 !important;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    display: block;
+}
+
+/* Улучшаем скроллбар */
+.code-slide pre::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.code-slide pre::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 0 8px 8px 0;
+}
+
+.code-slide pre::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+
+.code-slide pre::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* Стили для iframe слайдов */
+.stretch {
+    width: 100%;
+    height: 70vh;
+    border: 2px solid #268bd2;
+    border-radius: 8px;
+}
+
+/* Центрирование заголовков */
+.center {
+    text-align: center;
+}

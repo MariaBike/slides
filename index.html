@@ -4,21 +4,110 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Финансовая математика</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="dist/theme/solarized.css" id="theme">
 
-		<!-- Theme used for syntax highlighted code -->
+		
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+		<link rel="stylesheet" href="css/style.css">
+		
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-				<section>Slide 3</section>
+				<!-- Слайд 1: Заголовок -->
+				<section class="center">
+					<h1>Финансовая математика</h1>
+				</section>
+				
+				
+				<section data-markdown="markdown/fin_math.md"></section>
+				
+					
+				<section class="center">
+					<h2>Формулы наращения и дисконтирования по простым процентным ставкам</h2>
+				</section>
+				<section data-markdown="markdown/fv_s.md"></section>
+				<section data-markdown="markdown/pv_s.md"></section>
+				
+					
+				<section class="center">
+					<h2>Формулы наращения и дисконтирования по сложным процентным ставкам</h2>
+				</section>
+				<section data-markdown="markdown/fv_c.md"></section>
+				<section data-markdown="markdown/pv_c.md"></section>
+				
+				<section class="center">
+					<h2>3 практики начисления процентов</h2>
+				</section>
+				<section data-markdown="markdown/english.md"></section>
+				<section data-markdown="markdown/german.md"></section>
+				<section data-markdown="markdown/french.md"></section>
+
+				
+					
+					
+				<section data-fullscreen data-menu-title="Таблица номеров дней в году">
+					<h2>Таблица номеров дней в году</h2>
+					<iframe data-src="html/table.html" class="stretch"></iframe>
+				</section>
+
+					
+				<section data-fullscreen data-menu-title="Программа для расчета кредита">
+					<h2>Программа для расчета кредита</h2>
+					<iframe data-src="html/credit.html" class="stretch"></iframe>
+				</section>
+
+
+				
+					
+				<section data-fullscreen class="code-slide" data-menu-title="Код таблицы дней в году">
+					<div class="code-header">
+						<h2>Исходный код: таблица дней в году</h2>
+						<span class="filename">html/table.html</span>
+					</div>
+					<pre><code id="table-code" class="language-html" data-trim data-noescape data-line-numbers>
+					<!-- Код будет загружен здесь -->
+					</code></pre>
+				</section>
+
+				
+				<section data-fullscreen class="code-slide" data-menu-title="Код программы расчета кредита">
+					<div class="code-header">
+						<h2>Исходный код: программа расчета кредита</h2>
+						<span class="filename">html/credit.html</span>
+					</div>
+					<pre><code id="credit-code" class="language-html" data-trim data-noescape data-line-numbers>
+					<!-- Код будет загружен здесь -->
+					</code></pre>
+				</section>
+
+				<section class="center">
+					<h2>Смешные картинки</h2>
+				</section>
+
+				
+				<section data-fullscreen data-menu-title="Мем с котиком">
+					<img src="img/cat.jpg" alt="Мем с котиком" style="max-height: 700px; width: auto; padding: 15px;">
+				</section>
+				
+				
+				<section data-fullscreen data-menu-title="Мем с человеком">
+					<img src="img/human.jpg" alt="Мем с человеком" style="max-height: 1000px; width: auto; padding: 15px;">
+				</section>
+
+                <section data-fullscreen data-menu-title="Мем с веткой">
+					<img src="img/salary.jpg" alt="Мем с человеком" style="max-height: 700px; width: auto; padding: 15px;">
+				</section>
+				
+				
+				<section class="center" data-menu-title="Заключительный слайд">
+					<h2>Спасибо за внимание!</h2>
+				</section>
 			</div>
 		</div>
 
@@ -26,15 +115,128 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
+			// Функция для загрузки кода из файла
+			function loadCodeFile(filename, elementId) {
+				console.log('Загрузка файла:', filename);
+				
+				fetch(filename)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+						}
+						return response.text();
+					})
+					.then(code => {
+						const codeElement = document.getElementById(elementId);
+						if (codeElement) {
+							// Устанавливаем текст кода
+							codeElement.textContent = code;
+							
+							// Подсвечиваем синтаксис
+							if (window.hljs) {
+								hljs.highlightElement(codeElement);
+							}
+							
+							// Обновляем Reveal.js
+							Reveal.sync();
+							
+							console.log(`Файл ${filename} успешно загружен`);
+						} else {
+							console.error(`Элемент ${elementId} не найден`);
+						}
+					})
+					.catch(error => {
+						console.error('Ошибка загрузки файла:', error);
+						const codeElement = document.getElementById(elementId);
+						if (codeElement) {
+							codeElement.textContent = `// ОШИБКА ЗАГРУЗКИ ФАЙЛА\n// ${error.message}\n// Файл: ${filename}\n// Убедитесь, что файл существует и путь правильный`;
+						}
+					});
+			}
+			
+			// Инициализация Reveal.js
 			Reveal.initialize({
 				hash: true,
+				center: false,
+				dependencies: [
+					{
+						src: 'plugin/katex/katex.js',
+						async: true,
+					},
+					{
+						src: 'plugin/menu/menu.js',
+					},
+					{
+						src: 'plugin/fullscreen/fullscreen.js',
+					},
+				],
+				menu: {
+					numbers: true,
+					markers: true,
+				},
+				slideNumber: 'c/t',
+				controls: true,
+				progress: true,
+				transition: 'slide',
+				backgroundTransition: 'fade',
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+			
+			// Загрузка кода после инициализации Reveal.js
+			Reveal.on('ready', function(event) {
+				console.log('Reveal.js готов, начинаю загрузку файлов с кодом...');
+				
+				// Загружаем код из файлов
+				loadCodeFile('html/table.html', 'table-code');
+				loadCodeFile('html/credit.html', 'credit-code');
+			});
+			
+			// Альтернатива: ленивая загрузка при открытии слайда
+			Reveal.on('slidechanged', function(event) {
+				const currentSlide = event.currentSlide;
+				const slideIndex = Reveal.getIndices();
+				
+				// Проверяем, на каком слайде мы находимся
+				console.log('Текущий слайд:', slideIndex.h, slideIndex.v);
+				
+				// Если это слайд с кодом table.html (слайд 13)
+				if (currentSlide.querySelector('#table-code')) {
+					const codeElement = currentSlide.querySelector('#table-code');
+					if (codeElement && codeElement.textContent.trim() === '<!-- Код будет загружен здесь -->') {
+						console.log('Открыт слайд с кодом table.html, загружаю...');
+						setTimeout(() => loadCodeFile('html/table.html', 'table-code'), 100);
+					}
+				}
+				
+				// Если это слайд с кодом credit.html (слайд 14)
+				if (currentSlide.querySelector('#credit-code')) {
+					const codeElement = currentSlide.querySelector('#credit-code');
+					if (codeElement && codeElement.textContent.trim() === '<!-- Код будет загружен здесь -->') {
+						console.log('Открыт слайд с кодом credit.html, загружаю...');
+						setTimeout(() => loadCodeFile('html/credit.html', 'credit-code'), 100);
+					}
+				}
+			});
+			
+			// Открываем консоль для отладки
+			console.log('Презентация загружается...');
+			console.log('Текущий URL:', window.location.href);
+			
+			// Проверяем существование файлов при загрузке
+			window.addEventListener('load', function() {
+				console.log('Страница полностью загружена');
+				
+				// Проверяем наличие элементов
+				console.log('table-code элемент:', document.getElementById('table-code') ? 'найден' : 'не найден');
+				console.log('credit-code элемент:', document.getElementById('credit-code') ? 'найден' : 'не найден');
+				
+				// Проверяем пути к файлам
+				console.log('Проверка пути к table.html:', new URL('html/table.html', window.location.href).href);
+				console.log('Проверка пути к credit.html:', new URL('html/credit.html', window.location.href).href);
 			});
 		</script>
 	</body>
